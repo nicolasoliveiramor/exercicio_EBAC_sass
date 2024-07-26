@@ -1,0 +1,147 @@
+@use 'config/reset';
+@use 'config/variaveis';
+@use 'sass:math';
+
+
+
+@mixin displayBlock ($margin: 32px 0) {
+    display: block;
+    margin: $margin;
+}
+
+@mixin widths() {
+    width: 100%;
+}
+
+
+
+@function pixelParaEm($alvoEmPixel, $contextoEmPixel: 16px) {
+    @return math.div($alvoEmPixel, $contextoEmPixel)+em;
+}
+
+body {
+    background-color: variaveis.$corDeFundo;
+}
+
+li {
+    list-style: none;
+}
+
+.container {
+    @include widths();
+    max-width: 1024px;
+    margin: 0 auto;
+}
+
+header {
+    background-color: variaveis.$corPrincipal;
+    position: sticky;
+    top: 0;
+    left: 0;
+    
+    .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: pixelParaEm(16px);
+    }
+
+    .menu {
+        display: flex;
+    
+    }
+    
+    .menu li {
+        font-weight: bold;
+        margin-left: 24px;
+    }
+    
+    .menu li a {
+        color: #fff;
+        text-decoration: none;
+    }
+}
+
+section {
+    padding: pixelParaEm(56px);
+
+    .products {
+        @include widths();
+        margin-top: 40px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        column-gap: 2%;
+        row-gap: 4%;
+    }
+    
+    .product-item img {
+        @include widths();
+        border-radius: 16px;
+    }
+
+    .product-button {
+        @include displayBlock();
+        background-color: variaveis.$corBotoes;
+        color: variaveis.$corDeFundo;
+        text-align: center;
+        padding: 8px 0;
+        border-radius: 8px;
+        margin-top: 8px;
+        text-decoration: none;
+
+        &:hover {
+            background-color: lighten(variaveis.$corBotoes, 15%);
+        }
+    }
+}
+
+h2 {
+    font-size: pixelParaEm(36px);
+}
+
+@media screen and (max-width: variaveis.$mobile) {
+    .container {
+        max-width: 80%;
+    }
+
+    h2 {
+        font-size: pixelParaEm(36px);
+        text-align: center;
+    }
+    
+    section {
+        padding: pixelParaEm(32px);
+        
+        .products {     
+            @include displayBlock();
+        }
+        
+        .product-item {
+            @include displayBlock();
+        }
+    }
+}
+
+@media screen and (min-width:variaveis.$mobile) and (max-width: variaveis.$tablet) {
+    .container {
+        max-width: 90%;
+    }
+
+    h2 {
+        font-size: pixelParaEm(36px);
+        text-align: center;
+    }
+
+    section {
+        padding: pixelParaEm(16px);
+
+        .products {
+            margin-top: 20px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            column-gap: 6%;
+            row-gap: 4%;
+            @include widths();
+        }
+    }
+}
